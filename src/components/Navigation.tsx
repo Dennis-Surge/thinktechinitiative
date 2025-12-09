@@ -1,63 +1,88 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
+
+const navLinks = [
+  { to: "/about", label: "About" },
+  { to: "/programs", label: "Programs" },
+  { to: "/events", label: "Events" },
+  { to: "/blog", label: "Blog" },
+  { to: "/volunteer", label: "Volunteer" },
+  { to: "/partner", label: "Partner" },
+];
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   return (
-    <nav className="bg-primary shadow-md sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+    <nav 
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? "bg-primary/95 backdrop-blur-md shadow-lg" 
+          : "bg-primary"
+      }`} 
+      role="navigation" 
+      aria-label="Main navigation"
+    >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link 
             to="/" 
-            className="focus:outline-none focus:ring-2 focus:ring-accent rounded-md"
+            className="focus:outline-none focus:ring-2 focus:ring-accent rounded-md group"
             aria-label="Think Tech Initiative Home"
           >
-            <img src={logo} alt="Think Tech Initiative" className="h-12 w-auto" />
+            <img 
+              src={logo} 
+              alt="Think Tech Initiative" 
+              className="h-12 md:h-14 w-auto group-hover:scale-105 transition-transform" 
+            />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link 
-              to="/about" 
-              className="text-primary-foreground hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-md px-2 py-1"
-            >
-              About
-            </Link>
-            <Link 
-              to="/programs" 
-              className="text-primary-foreground hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-md px-2 py-1"
-            >
-              Programs
-            </Link>
-            <Link 
-              to="/events" 
-              className="text-primary-foreground hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-md px-2 py-1"
-            >
-              Events
-            </Link>
-            <Link 
-              to="/blog" 
-              className="text-primary-foreground hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-md px-2 py-1"
-            >
-              Blog
-            </Link>
-            <Link 
-              to="/volunteer" 
-              className="text-primary-foreground hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-md px-2 py-1"
-            >
-              Volunteer
-            </Link>
-            <Link 
-              to="/partner" 
-              className="text-primary-foreground hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-md px-2 py-1"
-            >
-              Partner
-            </Link>
+          <div className="hidden lg:flex items-center space-x-1">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.to}
+                to={link.to} 
+                className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-md focus:outline-none focus:ring-2 focus:ring-accent ${
+                  location.pathname === link.to 
+                    ? "text-accent" 
+                    : "text-primary-foreground hover:text-accent"
+                }`}
+              >
+                {link.label}
+                {location.pathname === link.to && (
+                  <motion.div
+                    layoutId="activeNav"
+                    className="absolute bottom-0 left-4 right-4 h-0.5 bg-accent rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop CTA Buttons */}
+          <div className="hidden lg:flex items-center gap-3">
             <Button variant="hero" size="default" asChild>
               <Link to="/apply">Apply Now</Link>
             </Button>
@@ -66,7 +91,7 @@ const Navigation = () => {
             </Button>
             <Link 
               to="/auth" 
-              className="text-primary-foreground hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-md px-2 py-1"
+              className="text-primary-foreground/70 hover:text-accent transition-colors text-sm px-3 py-2"
             >
               Admin
             </Link>
@@ -75,7 +100,7 @@ const Navigation = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-primary-foreground p-2 focus:outline-none focus:ring-2 focus:ring-accent rounded-md"
+            className="lg:hidden text-primary-foreground p-2 focus:outline-none focus:ring-2 focus:ring-accent rounded-md hover:bg-primary-foreground/10 transition-colors"
             aria-expanded={isOpen}
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
@@ -84,67 +109,47 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-primary-foreground/20">
-            <div className="flex flex-col space-y-4">
-              <Link 
-                to="/about" 
-                className="text-primary-foreground hover:text-accent transition-colors duration-300 px-2 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link 
-                to="/programs" 
-                className="text-primary-foreground hover:text-accent transition-colors duration-300 px-2 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Programs
-              </Link>
-              <Link 
-                to="/events" 
-                className="text-primary-foreground hover:text-accent transition-colors duration-300 px-2 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Events
-              </Link>
-              <Link 
-                to="/blog" 
-                className="text-primary-foreground hover:text-accent transition-colors duration-300 px-2 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Blog
-              </Link>
-              <Link 
-                to="/volunteer" 
-                className="text-primary-foreground hover:text-accent transition-colors duration-300 px-2 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Volunteer
-              </Link>
-              <Link 
-                to="/partner" 
-                className="text-primary-foreground hover:text-accent transition-colors duration-300 px-2 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Partner
-              </Link>
-              <Button variant="hero" size="default" className="w-full" asChild>
-                <Link to="/apply" onClick={() => setIsOpen(false)}>Apply Now</Link>
-              </Button>
-              <Button variant="donate" size="default" className="w-full" asChild>
-                <Link to="/donate" onClick={() => setIsOpen(false)}>Donate</Link>
-              </Button>
-              <Link 
-                to="/auth" 
-                className="text-primary-foreground hover:text-accent transition-colors duration-300 px-2 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                Admin
-              </Link>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              className="lg:hidden overflow-hidden"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <div className="py-4 border-t border-primary-foreground/20 space-y-1">
+                {navLinks.map((link) => (
+                  <Link 
+                    key={link.to}
+                    to={link.to} 
+                    className={`block px-4 py-3 rounded-lg transition-colors ${
+                      location.pathname === link.to
+                        ? "bg-accent/20 text-accent"
+                        : "text-primary-foreground hover:bg-primary-foreground/10 hover:text-accent"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <div className="pt-4 space-y-3">
+                  <Button variant="hero" size="default" className="w-full" asChild>
+                    <Link to="/apply">Apply Now</Link>
+                  </Button>
+                  <Button variant="donate" size="default" className="w-full" asChild>
+                    <Link to="/donate">Donate</Link>
+                  </Button>
+                  <Link 
+                    to="/auth" 
+                    className="block text-center text-primary-foreground/70 hover:text-accent transition-colors py-2"
+                  >
+                    Admin
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
