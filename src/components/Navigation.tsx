@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/think-tech-logo.png";
 
 const navLinks = [
   { to: "/about", label: "About" },
@@ -36,8 +36,8 @@ const Navigation = () => {
     <nav 
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? "bg-primary/95 backdrop-blur-md shadow-lg" 
-          : "bg-primary"
+          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border" 
+          : "bg-background border-b border-border"
       }`} 
       role="navigation" 
       aria-label="Main navigation"
@@ -47,7 +47,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="focus:outline-none focus:ring-2 focus:ring-accent rounded-md group"
+            className="focus:outline-none focus:ring-2 focus:ring-primary rounded-md group flex items-center gap-3"
             aria-label="Think Tech Initiative Home"
           >
             <img 
@@ -63,17 +63,17 @@ const Navigation = () => {
               <Link 
                 key={link.to}
                 to={link.to} 
-                className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-md focus:outline-none focus:ring-2 focus:ring-accent ${
+                className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-md focus:outline-none focus:ring-2 focus:ring-primary ${
                   location.pathname === link.to 
-                    ? "text-accent" 
-                    : "text-primary-foreground hover:text-accent"
+                    ? "text-primary" 
+                    : "text-foreground hover:text-primary"
                 }`}
               >
                 {link.label}
                 {location.pathname === link.to && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute bottom-0 left-4 right-4 h-0.5 bg-accent rounded-full"
+                    className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary rounded-full"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -91,7 +91,7 @@ const Navigation = () => {
             </Button>
             <Link 
               to="/auth" 
-              className="text-primary-foreground/70 hover:text-accent transition-colors text-sm px-3 py-2"
+              className="text-muted-foreground hover:text-primary transition-colors text-sm px-3 py-2"
             >
               Admin
             </Link>
@@ -100,7 +100,7 @@ const Navigation = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-primary-foreground p-2 focus:outline-none focus:ring-2 focus:ring-accent rounded-md hover:bg-primary-foreground/10 transition-colors"
+            className="lg:hidden text-foreground p-2 focus:outline-none focus:ring-2 focus:ring-primary rounded-md hover:bg-muted transition-colors"
             aria-expanded={isOpen}
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
@@ -118,15 +118,15 @@ const Navigation = () => {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="py-4 border-t border-primary-foreground/20 space-y-1">
+              <div className="py-4 border-t border-border space-y-1">
                 {navLinks.map((link) => (
                   <Link 
                     key={link.to}
                     to={link.to} 
                     className={`block px-4 py-3 rounded-lg transition-colors ${
                       location.pathname === link.to
-                        ? "bg-accent/20 text-accent"
-                        : "text-primary-foreground hover:bg-primary-foreground/10 hover:text-accent"
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground hover:bg-muted hover:text-primary"
                     }`}
                   >
                     {link.label}
@@ -141,7 +141,7 @@ const Navigation = () => {
                   </Button>
                   <Link 
                     to="/auth" 
-                    className="block text-center text-primary-foreground/70 hover:text-accent transition-colors py-2"
+                    className="block text-center text-muted-foreground hover:text-primary transition-colors py-2"
                   >
                     Admin
                   </Link>
