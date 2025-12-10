@@ -114,7 +114,7 @@ const Hero = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <p className="font-heading font-bold text-lg text-primary">Since 2020</p>
+              <p className="font-heading font-bold text-lg text-primary">Since 2024</p>
               <p className="text-sm text-muted-foreground">Making Impact</p>
             </motion.div>
 
