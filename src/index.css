@@ -1,123 +1,124 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Think Tech Initiative Design System
+/* Java-Inspired Design System (Oracle Java Style)
    All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Typography */
-    --font-heading: 'Plus Jakarta Sans', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    /* Typography - Clean, technical fonts like Java/Oracle */
+    --font-heading: 'Source Sans 3', sans-serif;
+    --font-body: 'Roboto', sans-serif;
 
-    /* Think Tech Initiative Colors */
+    /* Java Color Palette */
     --background: 0 0% 100%;
-    --foreground: 220 70% 15%;
+    --foreground: 210 20% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 70% 15%;
+    --card-foreground: 210 20% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 70% 15%;
+    --popover-foreground: 210 20% 20%;
 
-    /* Deep navy blue for hero sections */
-    --primary: 220 70% 20%;
+    /* Java Blue - Primary */
+    --primary: 203 82% 33%;
     --primary-foreground: 0 0% 100%;
 
     /* Light gray backgrounds */
-    --secondary: 210 20% 98%;
-    --secondary-foreground: 220 70% 15%;
+    --secondary: 210 20% 97%;
+    --secondary-foreground: 210 20% 20%;
 
-    --muted: 220 13% 95%;
-    --muted-foreground: 220 15% 45%;
+    --muted: 210 15% 93%;
+    --muted-foreground: 210 10% 45%;
 
-    /* Bright blue for CTAs */
-    --accent: 217 91% 60%;
+    /* Java Orange/Red - Accent (like Java logo) */
+    --accent: 14 100% 50%;
     --accent-foreground: 0 0% 100%;
 
-    /* Success green */
-    --success: 152 69% 45%;
+    /* Teal/Green from logo */
+    --success: 174 72% 40%;
     --success-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 217 91% 60%;
+    --border: 210 15% 88%;
+    --input: 210 15% 88%;
+    --ring: 203 82% 33%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220, 70%, 20%) 0%, hsl(217, 91%, 35%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(217, 91%, 45%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(220, 70%, 20%) 0%, hsl(220, 70%, 15%) 100%);
+    /* Java-style Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(203, 82%, 33%) 0%, hsl(203, 82%, 25%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(14, 100%, 50%) 0%, hsl(14, 100%, 40%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(203, 82%, 33%) 0%, hsl(203, 82%, 25%) 100%);
+    --gradient-java: linear-gradient(135deg, hsl(203, 82%, 33%) 0%, hsl(174, 72%, 40%) 50%, hsl(14, 100%, 50%) 100%);
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(220 70% 15% / 0.05);
-    --shadow-md: 0 4px 6px -1px hsl(220 70% 15% / 0.1), 0 2px 4px -2px hsl(220 70% 15% / 0.1);
-    --shadow-lg: 0 10px 15px -3px hsl(220 70% 15% / 0.1), 0 4px 6px -4px hsl(220 70% 15% / 0.1);
-    --shadow-xl: 0 20px 25px -5px hsl(220 70% 15% / 0.1), 0 8px 10px -6px hsl(220 70% 15% / 0.1);
-    --shadow-glow: 0 0 40px hsl(217 91% 60% / 0.3);
+    --shadow-sm: 0 1px 2px 0 hsl(210 20% 20% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(210 20% 20% / 0.1), 0 2px 4px -2px hsl(210 20% 20% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(210 20% 20% / 0.1), 0 4px 6px -4px hsl(210 20% 20% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(210 20% 20% / 0.1), 0 8px 10px -6px hsl(210 20% 20% / 0.1);
+    --shadow-glow: 0 0 40px hsl(14 100% 50% / 0.25);
     
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-primary: 203 82% 33%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 15% 95%;
+    --sidebar-accent-foreground: 210 20% 20%;
+    --sidebar-border: 210 15% 88%;
+    --sidebar-ring: 203 82% 33%;
   }
 
   .dark {
-    --background: 220 70% 8%;
+    --background: 210 25% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 220 70% 12%;
+    --card: 210 25% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 220 70% 12%;
+    --popover: 210 25% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 217 91% 60%;
+    --primary: 203 82% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 60% 15%;
+    --secondary: 210 25% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 50% 18%;
-    --muted-foreground: 220 15% 70%;
+    --muted: 210 20% 18%;
+    --muted-foreground: 210 10% 65%;
 
-    --accent: 217 91% 60%;
+    --accent: 14 100% 55%;
     --accent-foreground: 0 0% 100%;
 
-    --success: 152 69% 45%;
+    --success: 174 72% 45%;
     --success-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 40% 20%;
-    --input: 220 40% 20%;
-    --ring: 217 91% 60%;
+    --border: 210 20% 22%;
+    --input: 210 20% 22%;
+    --ring: 203 82% 50%;
 
-    --gradient-primary: linear-gradient(135deg, hsl(220, 70%, 15%) 0%, hsl(217, 91%, 25%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(217, 91%, 55%) 0%, hsl(217, 91%, 40%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(220, 70%, 12%) 0%, hsl(220, 70%, 8%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(203, 82%, 35%) 0%, hsl(203, 82%, 25%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(14, 100%, 55%) 0%, hsl(14, 100%, 45%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(210, 25%, 12%) 0%, hsl(210, 25%, 8%) 100%);
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 210 25% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 203 82% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 20% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 210 20% 20%;
+    --sidebar-ring: 203 82% 50%;
   }
 
   html {
