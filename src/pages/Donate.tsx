@@ -5,12 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+
+const EMAIL_ADDRESS = "thinktechinitiative@gmail.com";
 
 const Donate = () => {
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -19,40 +19,35 @@ const Donate = () => {
     message: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    try {
-      const { error } = await supabase.from("donations").insert([{
-        ...formData,
-        amount: parseFloat(formData.amount),
-        currency: "GHS"
-      }]);
+    const mailtoBody = `Donation Pledge Details:
 
-      if (error) throw error;
+Full Name: ${formData.full_name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Donation Amount: GHS ${formData.amount}
 
-      toast({
-        title: "Thank You!",
-        description: "Your donation has been recorded. We'll contact you with payment details.",
-      });
+Message:
+${formData.message || "No additional message"}`;
 
-      setFormData({
-        full_name: "",
-        email: "",
-        phone: "",
-        amount: "",
-        message: "",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to process donation. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+    const mailtoLink = `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent("Donation Pledge - Think Tech Initiative")}&body=${encodeURIComponent(mailtoBody)}`;
+    
+    window.location.href = mailtoLink;
+    
+    toast({
+      title: "Opening Email Client",
+      description: "Your email client should open with your donation details.",
+    });
+
+    setFormData({
+      full_name: "",
+      email: "",
+      phone: "",
+      amount: "",
+      message: "",
+    });
   };
 
   return (
@@ -126,8 +121,8 @@ const Donate = () => {
                 />
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={loading}>
-                {loading ? "Processing..." : "Donate Now"}
+              <Button type="submit" variant="hero" size="lg" className="w-full">
+                Donate Now
               </Button>
             </form>
           </div>
