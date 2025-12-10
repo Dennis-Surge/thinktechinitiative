@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Target, Eye, Users } from "lucide-react";
+import founderImage from "@/assets/founder.png";
 
 const About = () => {
   return (
@@ -95,6 +96,42 @@ const About = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Founder Section */}
+        <motion.div 
+          className="mt-20 pt-16 border-t border-border"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              Leadership
+            </span>
+            <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
+              Meet Our Founder
+            </h3>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="relative mb-6">
+              <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-lg" />
+              <img 
+                src={founderImage} 
+                alt="Mr. Dennis Enyonam Gewu - Founder and Team Lead of Think Tech Initiative"
+                className="relative w-48 h-48 md:w-56 md:h-56 object-cover rounded-full border-4 border-primary/20 shadow-xl"
+              />
+            </div>
+            <h4 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-1">
+              Mr. Dennis Enyonam Gewu
+            </h4>
+            <p className="text-accent font-medium mb-4">Founder / Team Lead</p>
+            <p className="text-muted-foreground text-center max-w-xl">
+              Passionate about empowering Ghana's youth through technology and innovation, leading the mission to create digital opportunities for the next generation.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
