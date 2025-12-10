@@ -6,12 +6,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+
+const EMAIL_ADDRESS = "thinktechinitiative@gmail.com";
 
 const Apply = () => {
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -22,38 +22,41 @@ const Apply = () => {
     accessibility_needs: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    try {
-      const { error } = await supabase.from("applications").insert([formData]);
+    const mailtoBody = `Program Application Details:
 
-      if (error) throw error;
+Full Name: ${formData.full_name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Program: ${formData.program}
+Education Level: ${formData.education_level}
 
-      toast({
-        title: "Application Submitted!",
-        description: "We've received your application and will get back to you soon.",
-      });
+Motivation:
+${formData.motivation}
 
-      setFormData({
-        full_name: "",
-        email: "",
-        phone: "",
-        program: "",
-        education_level: "",
-        motivation: "",
-        accessibility_needs: "",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to submit application. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+Accessibility Needs:
+${formData.accessibility_needs || "None specified"}`;
+
+    const mailtoLink = `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(`Program Application - ${formData.program}`)}&body=${encodeURIComponent(mailtoBody)}`;
+    
+    window.location.href = mailtoLink;
+    
+    toast({
+      title: "Opening Email Client",
+      description: "Your email client should open with your application details.",
+    });
+
+    setFormData({
+      full_name: "",
+      email: "",
+      phone: "",
+      program: "",
+      education_level: "",
+      motivation: "",
+      accessibility_needs: "",
+    });
   };
 
   return (
@@ -152,8 +155,8 @@ const Apply = () => {
                 />
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={loading}>
-                {loading ? "Submitting..." : "Submit Application"}
+              <Button type="submit" variant="hero" size="lg" className="w-full">
+                Submit Application
               </Button>
             </form>
           </div>

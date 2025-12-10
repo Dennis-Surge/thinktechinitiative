@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Code, Lightbulb, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ContactModal from "@/components/ContactModal";
 import iconCoding from "@/assets/icon-coding.png";
 import iconInnovation from "@/assets/icon-innovation.png";
 import iconAccessibility from "@/assets/icon-accessibility.png";
@@ -61,9 +61,10 @@ const ProgramsPage = () => {
                   </ul>
                 </div>
 
-                <Button variant="hero" className="w-full">
-                  Learn More
-                </Button>
+                <ContactModal 
+                  trigger={<Button variant="hero" className="w-full">Learn More</Button>}
+                  subject={`Inquiry about ${program.title}`}
+                />
               </div>
             ))}
           </div>
