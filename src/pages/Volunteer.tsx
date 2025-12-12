@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Heart, Users, Lightbulb, Award } from "lucide-react";
+import VolunteerModal from "@/components/VolunteerModal";
 
 const Volunteer = () => {
   const opportunities = [
@@ -57,9 +58,9 @@ const Volunteer = () => {
             <p className="text-lg mb-8 opacity-90">
               Join our volunteer community and help shape the future of tech in Ghana.
             </p>
-            <Button variant="hero" size="lg">
-              Apply to Volunteer
-            </Button>
+            <VolunteerModal 
+              trigger={<Button variant="hero" size="lg">Apply to Volunteer</Button>}
+            />
           </div>
         </div>
       </main>

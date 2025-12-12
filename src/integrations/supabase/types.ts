@@ -86,6 +86,42 @@ export type Database = {
         }
         Relationships: []
       }
+      program_inquiries: {
+        Row: {
+          created_at: string
+          education_level: string | null
+          email: string
+          full_name: string
+          id: string
+          message: string | null
+          phone: string | null
+          program: string
+          selected_courses: string[]
+        }
+        Insert: {
+          created_at?: string
+          education_level?: string | null
+          email: string
+          full_name: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          program: string
+          selected_courses: string[]
+        }
+        Update: {
+          created_at?: string
+          education_level?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          program?: string
+          selected_courses?: string[]
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null
@@ -104,6 +140,42 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      volunteer_applications: {
+        Row: {
+          availability: string | null
+          created_at: string
+          email: string
+          experience: string | null
+          full_name: string
+          id: string
+          motivation: string
+          phone: string | null
+          skills: string | null
+        }
+        Insert: {
+          availability?: string | null
+          created_at?: string
+          email: string
+          experience?: string | null
+          full_name: string
+          id?: string
+          motivation: string
+          phone?: string | null
+          skills?: string | null
+        }
+        Update: {
+          availability?: string | null
+          created_at?: string
+          email?: string
+          experience?: string | null
+          full_name?: string
+          id?: string
+          motivation?: string
+          phone?: string | null
+          skills?: string | null
         }
         Relationships: []
       }

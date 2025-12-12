@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import codingIcon from "@/assets/icon-coding.png";
 import innovationIcon from "@/assets/icon-innovation.png";
 import accessibilityIcon from "@/assets/icon-accessibility.png";
+import ProgramInquiryModal from "@/components/ProgramInquiryModal";
 
 const programs = [
   {
@@ -14,6 +15,7 @@ const programs = [
     icon: codingIcon,
     iconAlt: "Laptop with code brackets representing digital skills training",
     gradient: "from-accent/20 to-accent/5",
+    courses: ["HTML/CSS", "JavaScript", "React", "Python", "Digital Marketing", "Data Analytics"],
   },
   {
     id: 2,
@@ -22,6 +24,7 @@ const programs = [
     icon: innovationIcon,
     iconAlt: "Lightbulb with innovation rays representing technology for social good",
     gradient: "from-success/20 to-success/5",
+    courses: ["Project Management", "UI/UX Design", "Database Management", "API Integration"],
   },
   {
     id: 3,
@@ -30,6 +33,7 @@ const programs = [
     icon: accessibilityIcon,
     iconAlt: "Accessibility symbol with assistive technology elements representing inclusive innovation",
     gradient: "from-primary/20 to-primary/5",
+    courses: ["Accessibility Standards", "Assistive Tech", "Inclusive Design", "User Research"],
   },
 ];
 
@@ -109,10 +113,19 @@ const Programs = () => {
                     {program.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="pb-8">
-                  <CardDescription className="font-body text-center text-muted-foreground leading-relaxed">
+                <CardContent className="pb-8 text-center">
+                  <CardDescription className="font-body text-muted-foreground leading-relaxed mb-6">
                     {program.description}
                   </CardDescription>
+                  <ProgramInquiryModal
+                    trigger={
+                      <Button variant="outline" size="sm" className="group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                        Learn More
+                      </Button>
+                    }
+                    programTitle={program.title}
+                    courses={program.courses}
+                  />
                 </CardContent>
               </Card>
             </motion.div>

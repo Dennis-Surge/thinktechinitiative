@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import ContactModal from "@/components/ContactModal";
+import ProgramInquiryModal from "@/components/ProgramInquiryModal";
 import iconCoding from "@/assets/icon-coding.png";
 import iconInnovation from "@/assets/icon-innovation.png";
 import iconAccessibility from "@/assets/icon-accessibility.png";
@@ -61,9 +61,10 @@ const ProgramsPage = () => {
                   </ul>
                 </div>
 
-                <ContactModal 
+                <ProgramInquiryModal 
                   trigger={<Button variant="hero" className="w-full">Learn More</Button>}
-                  subject={`Inquiry about ${program.title}`}
+                  programTitle={program.title}
+                  courses={program.skills}
                 />
               </div>
             ))}
