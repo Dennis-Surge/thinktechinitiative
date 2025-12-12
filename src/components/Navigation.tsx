@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/think-tech-logo.png";
+import { supabase } from "@/integrations/supabase/client";
 
 const navLinks = [
   { to: "/about", label: "About" },
@@ -17,6 +18,7 @@ const navLinks = [
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -25,6 +27,31 @@ const Navigation = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", user.id)
+          .eq("role", "admin")
+          .single();
+        setIsAdmin(!!roles);
+      } else {
+        setIsAdmin(false);
+      }
+    };
+
+    checkAdminStatus();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      setTimeout(checkAdminStatus, 0);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   // Close mobile menu on route change
@@ -89,12 +116,15 @@ const Navigation = () => {
             <Button variant="donate" size="default" asChild>
               <Link to="/donate">Donate</Link>
             </Button>
-            <Link 
-              to="/auth" 
-              className="text-muted-foreground hover:text-primary transition-colors text-sm px-3 py-2"
-            >
-              Admin
-            </Link>
+            {isAdmin && (
+              <Link 
+                to="/admin" 
+                className="text-accent hover:text-primary transition-colors text-sm px-3 py-2 flex items-center gap-1"
+              >
+                <Settings className="h-4 w-4" />
+                Admin
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -139,12 +169,15 @@ const Navigation = () => {
                   <Button variant="donate" size="default" className="w-full" asChild>
                     <Link to="/donate">Donate</Link>
                   </Button>
-                  <Link 
-                    to="/auth" 
-                    className="block text-center text-muted-foreground hover:text-primary transition-colors py-2"
-                  >
-                    Admin
-                  </Link>
+                  {isAdmin && (
+                    <Link 
+                      to="/admin" 
+                      className="flex items-center justify-center gap-2 text-accent hover:text-primary transition-colors py-2"
+                    >
+                      <Settings className="h-4 w-4" />
+                      Admin Dashboard
+                    </Link>
+                  )}
                 </div>
               </div>
             </motion.div>
